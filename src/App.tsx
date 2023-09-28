@@ -1,4 +1,4 @@
-import './App.css'
+import './App.scss'
 import Docs from './Pages/Docs'
 
 function App() {

@@ -1,3 +1,0 @@
-interface TopbarProps {
-    photoURL: string;
-}

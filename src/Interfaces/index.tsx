@@ -3,5 +3,7 @@ interface TopbarProps {
 }
 
 interface functionInterface {
+    id: string;
     handleEdit: ()=> void
+    docData: {};
 }

@@ -1,15 +1,17 @@
 import './index.scss'
 import addDoc from '../../assets/AddDoc.png'
-import { useState } from 'react'
 import EditDoc from '../EditDoc'
 import {createDoc} from '../../API/Firestore'
 
-const CreateDoc = () => {
-  const [isEdit, setIsEdit] = useState(false);
+type isEditType = {
+  isEdit: boolean,
+  handleEdit: ()=> void,
+  id: string
+  docData: object;
+}
 
-  const handleEdit = () => {
-    setIsEdit(!isEdit);
-  };
+const CreateDoc = ({isEdit, handleEdit, id, docData}: isEditType) => {
+
 
   const createDocument = () => {
     const payload = {
@@ -17,8 +19,9 @@ const CreateDoc = () => {
     };
     createDoc(payload);
   };
+  console.log(id);
 
-    if(isEdit) return <EditDoc handleEdit={handleEdit}/>
+    if(isEdit) return <EditDoc docData={docData} handleEdit={handleEdit} id={id}/>
 
   return (
     <div className='new-doc-container'>

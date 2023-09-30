@@ -3,13 +3,18 @@ import './index.scss'
 import {BiArrowBack} from 'react-icons/bi'
 import ReactQuill from 'react-quill';
 import EditorToolbar, { modules, formats } from '../../Toolbar';
-import { editDoc } from '../../API/Firestore';
+import { editDoc, getCurrentDoc } from '../../API/Firestore';
 
 
-const EditDoc = ({handleEdit, id, docData}: functionInterface) => {
+const EditDoc = ({handleEdit, id}: functionInterface) => {
     const quillRef = useRef<any>(null);
      const [value, setValue] = useState('');
      const [title, setTitle] = useState('');
+     const [currentDocument, setCurrentDocument] = useState({
+      title: "",
+      value: ""
+
+     });
 
      function editDocument(){
       const payload = {
@@ -19,8 +24,14 @@ const EditDoc = ({handleEdit, id, docData}: functionInterface) => {
       editDoc(payload,id);
      }
 
+     
+  const getCurrentDocument = ()=>{
+    getCurrentDoc(id, setCurrentDocument);
+  }
+
      useEffect(()=>{
       const debounced = setTimeout(()=>{
+
         editDocument();
       }, 2000);
       return() => clearTimeout(debounced);
@@ -28,8 +39,22 @@ const EditDoc = ({handleEdit, id, docData}: functionInterface) => {
 
 
      useEffect(()=>{
+            getCurrentDocument();
             quillRef.current.focus();
+
+                  return ()=>{
+        setCurrentDocument({
+          title: '',
+          value: ''
+        })
+      }
      },[])
+
+     useEffect(()=>{
+      setTitle(currentDocument.title);
+      setValue(currentDocument.value);
+     },[currentDocument])
+
   return (
     <div className='edit-container'>
         <BiArrowBack onClick={handleEdit} size={30} className="back-icon"/>

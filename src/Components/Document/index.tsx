@@ -7,17 +7,15 @@ import { useState } from 'react'
 const Document = ({photoURL}: TopbarProps) => {
 
   const [id, setId] = useState('');
-  const [docData, setDocData] = useState({})
-  const openDoc = (id:string, value:string, title: string)=>{
+  const openDoc = (id:string)=>{
     setIsEdit(!isEdit);
     setId(id);
-    setDocData({
-      value,
-      title,
-    })
   }
 
+
   const [isEdit, setIsEdit] = useState(false);
+
+
 
   const handleEdit = () => {
     setIsEdit(!isEdit);

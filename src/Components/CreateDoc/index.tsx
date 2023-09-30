@@ -7,21 +7,25 @@ type isEditType = {
   isEdit: boolean,
   handleEdit: ()=> void,
   id: string
-  docData: object;
+  docData: {
+    value: string
+    title: string
+  };
 }
 
-const CreateDoc = ({isEdit, handleEdit, id, docData}: isEditType) => {
+const CreateDoc = ({isEdit, handleEdit, id}: isEditType) => {
 
 
   const createDocument = () => {
     const payload = {
+      title: "",
       value: '',
     };
     createDoc(payload);
   };
   console.log(id);
 
-    if(isEdit) return <EditDoc docData={docData} handleEdit={handleEdit} id={id}/>
+    if(isEdit) return <EditDoc handleEdit={handleEdit} id={id}/>
 
   return (
     <div className='new-doc-container'>

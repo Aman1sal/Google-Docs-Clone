@@ -30,7 +30,7 @@ const DocsList = ({openDoc}: OpendocType) => {
         <p className='doc-title'>
         {doc.title}
         </p>
-        <p className="doc-content" dangerouslySetInnerHTML={{__html: doc.value.substring(0,100)}}></p>
+        <p className="doc-content" dangerouslySetInnerHTML={{__html: doc.value.substring(0,200)}}></p>
         </div>
     })}
     </div>

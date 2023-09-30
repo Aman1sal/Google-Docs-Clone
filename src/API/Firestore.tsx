@@ -1,10 +1,11 @@
 import {firestore, auth} from "../firebaseConfig";
-import { addDoc, collection, doc, updateDoc, getDocs } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc, getDocs, getDoc } from "firebase/firestore";
 
 const docs = collection(firestore, 'docs')
 
 type payloadType = {
     value: string,
+    title: string,
 }
 
 export const createDoc = (payload: payloadType) =>{
@@ -25,7 +26,19 @@ export const getDocuments = (setDocs: any)=>{
     })
 };
 
-export const editDoc = (payload: payloadType, id) =>{
+export const editDoc = (payload: any, id: string) =>{
     const docToEdit = doc(docs, id)
-    updateDoc(docToEdit, {...payload},id);
+    updateDoc(docToEdit, payload,id);
 };
+
+export const getCurrentDoc = (id:string, setCurrentDocument:any)=>{
+    const docToGet = doc(docs, id);
+
+    getDoc(docToGet)
+    .then((response)=>{
+        setCurrentDocument(response.data())
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+}
